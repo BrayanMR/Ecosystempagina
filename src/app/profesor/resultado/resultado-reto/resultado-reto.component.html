@@ -1,0 +1,10 @@
+<div *ngIf="resultado === 'ganador'" class="alert alert-success">
+    <h2>{{ mensaje }}</h2>
+  </div>
+  <div *ngIf="resultado === 'empate'" class="alert alert-info">
+    <h2>{{ mensaje }}</h2>
+  </div>
+  <div *ngIf="resultado === 'ninguno'" class="alert alert-warning">
+    <h2>{{ mensaje }}</h2>
+  </div>
+  

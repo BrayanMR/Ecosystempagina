@@ -1,0 +1,34 @@
+<app-navbar2></app-navbar2>
+
+<div class="profile-card">
+  <div class="profile-img">
+    <img *ngIf="photoUrl" [src]="photoUrl" alt="Profile Image"> 
+  </div>
+  <h2>{{ usuarioActual?.name }} {{ usuarioActual?.lastname }}</h2>
+  <p>ID: {{ usuarioActual?.identificacion }}</p>
+  <p>Curso: {{usuarioActual.curso}}</p>
+  <p>Institucion: {{ usuarioActual?.institucion }}  </p>
+  <p>Correo: {{ usuarioActual?.email }}</p>
+
+  <button class="edit-btn" (click)="openEditModal()">Editar Perfil</button>
+</div>
+
+<!-- Modal de Edición -->
+<div id="editModal" class="modal" [class.show]="isModalOpen">
+  <div class="modal-content">
+    <span class="close" (click)="closeEditModal()">&times;</span>
+    <h2>Editar Perfil</h2>
+    <form (ngSubmit)="saveChanges()" #usuarioFor m="ngForm">
+      <label for="name">Nombre</label>
+<!-- In perfil.component.html -->
+<input type="text" id="name" name="name" [(ngModel)]="usuarioActual.name" required><br>
+      <label for="lastname">Apellido:</label>
+      <input type="text" id="lastname" name="lastname" [(ngModel)]="usuarioActual.lastname"required><br>
+      <label for="id">ID:</label>
+      <input type="text" id="id" name="id" [(ngModel)]="usuarioActual.identificacion"required><br>
+      <label for="file">Subir Imagen:</label>
+      <input type="file" id="file" (change)="onFileSelected($event)"><br>
+      <button type="submit" (click)="uploadFile()">Guardar Cambios</button>
+    </form>
+  </div>
+</div>

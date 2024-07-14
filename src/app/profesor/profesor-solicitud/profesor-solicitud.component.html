@@ -1,0 +1,58 @@
+<div class="content-container bg-white flex-1 flex flex-col space-y-5 lg:space-y-0 lg:flex-row lg:space-x-10 max-w-5xl sm:p-10 sm:my-4 sm:mx-8 sm:rounded-2xl">
+    <!-- Navigation -->
+    <app-profesornavbar [currentPage]="'solicitud'"></app-profesornavbar>
+    <!-- End Navigation -->
+
+    <div class="flex-1 p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="font-bold text-green-600 text-3xl lg:text-5xl">
+                Tus Solicitudes
+            </h1>
+            <div class="flex space-x-2">
+                <!-- Add any additional content here -->
+            </div>
+        </div>
+        <div class="flex">
+            <div class="w-1/2 bg-gray-200 h-1 my-2"></div>
+            <div class="w-1/2"></div> <!-- Empty space to occupy the rest -->
+        </div>
+        <div class="flex justify-between items-center mb-6">
+        </div>
+        <!-- New publications -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Start Card -->
+            <div *ngFor="let estudiante of estudiantes$ | async" class="bg-white p-6 rounded-lg shadow-lg card">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-gray-300 rounded-full overflow-hidden">
+                        <img [src]="estudiante.photoUrl || 'https://via.placeholder.com/150'" alt="Image" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <span class="text-lg font-medium text-gray-700">{{ estudiante.name }} {{ estudiante.lastname }}</span>
+                        <p class="text-sm text-gray-500">Curso: {{ estudiante.curso }}</p>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <p class="text-sm text-gray-600">Nombre: {{ estudiante.name }} {{ estudiante.lastname }}</p>
+                    <p class="text-sm text-gray-600">Documento: {{ estudiante.identificacion }}</p>
+                    <p class="text-sm text-gray-600">Email: {{ estudiante.email }}</p>
+                    <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg" (click)="toggleModal('documentModal', estudiante)">Ver Documento</button>
+                </div>
+            </div>
+            <!-- End Card -->
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="documentModal" class="fixed inset-0 hidden bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg p-8 max-w-4xl w-full space-y-4">
+        <h2 class="text-2xl font-bold mb-4">Ver Documento</h2>
+        <div class="flex justify-center">
+            <iframe id="document-iframe" src="" width="600" height="400" class="border border-gray-300 rounded-md"></iframe>
+        </div>
+        <div class="flex justify-end space-x-4">
+            <button class="bg-green-600 text-white px-4 py-2 rounded-lg" (click)="approveEstudiante()">Confirmar</button>
+            <button class="bg-red-600 text-white px-4 py-2 rounded-lg" (click)="denyEstudiante()">Denegar</button>
+        </div>
+    </div>
+</div>

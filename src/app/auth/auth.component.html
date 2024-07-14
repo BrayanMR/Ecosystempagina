@@ -1,0 +1,106 @@
+<div class="body">
+  <div class="container" id="container">
+    <div class="form-container sign-up-container">
+      <form id="registrar" [formGroup]="registerForm" (ngSubmit)="registerSubmit()">
+        <h1>Crear una cuenta</h1>
+        <div class="infield">
+          <select id="seleci" name="role" formControlName="role" placeholder="Rol">
+            <option value="" disabled selected>Profesor o Estudiante </option>
+            <option value="estudiante">Estudiante</option>
+            <option value="profesor">Profesor</option>
+          </select>
+          <label></label>
+          <div *ngIf="registerForm.get('role')?.touched && registerForm.get('role')?.invalid" class="error-message">Selecciona un rol.</div>
+        </div>
+        <div>
+          <h6>Foto de perfil</h6>
+          <input type="file" id="photo" name="photo" formControlName="photo" accept="image/*" (change)="cargarImagen($event, 'photo')">
+          <div *ngIf="registerForm.get('photo')?.touched && registerForm.get('photo')?.invalid" class="error-message">Sube una foto.</div>
+        </div>
+        <div>
+          <h6>Constancia o carnet</h6>
+          <input type="file" id="certificate" name="certificate" formControlName="certificate" accept="application/pdf" (change)="cargarImagen($event, 'certificate')">
+          <div *ngIf="registerForm.get('certificate')?.touched && registerForm.get('certificate')?.invalid" class="error-message">Sube una constancia o carnet.</div>
+        </div>
+        <div class="infield">
+          <input type="text" placeholder="Nombre" id="namer" name="name" formControlName="name">
+          <label></label>
+          <div *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid" class="error-message">Ingresa tu nombre.</div>
+        </div>
+        <div class="infield">
+          <input type="text" placeholder="Apellido" id="lastname" name="lastname" formControlName="lastname">
+          <label></label>
+          <div *ngIf="registerForm.get('lastname')?.touched && registerForm.get('lastname')?.invalid" class="error-message">Ingresa tu apellido.</div>
+        </div>
+        <div class="infield">
+          <select id= "dos" id="institucion" name="institucion" formControlName="institucion" placeholder="Institución">
+            <option value="" disabled selected>Institución</option>
+            <option value="Roberto Velandia">Roberto Velandia</option>
+            <option value="SENA">SENA</option>
+            <option value="LA PAZ">LA PAZ</option>
+          </select>
+          <label></label>
+        </div>
+        <div class="infield">
+          <select  id= "dos" id="curso" name="curso" formControlName="curso" placeholder="curso">
+            <option value="" disabled selected>Curso</option>
+            <option value="101">101</option>
+            <option value="102">102</option>
+            <option value="103">103</option>
+          </select>
+          <label></label>
+        </div>
+        <div class="infield">
+          <input type="text" placeholder="Identificación" id="identificacion" name="identificacion" formControlName="identificacion">
+          <label></label>
+          <div *ngIf="registerForm.get('identificacion')?.touched && registerForm.get('identificacion')?.invalid" class="error-message">Ingresa tu identificación.</div>
+        </div>
+        <div class="infield">
+          <input type="email" placeholder="Correo Electrónico" id="email" name="email" formControlName="email">
+          <label></label>
+          <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid" class="error-message">Ingresa un correo válido.</div>
+        </div>
+        <div class="infield">
+          <input type="password" placeholder="Contraseña" id="subpassword" name="subpassword" formControlName="password">
+          <label></label>
+          <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" class="error-message">Ingresa una contraseña de al menos 6 caracteres.</div>
+        </div>
+        <button type="submit">Crear cuenta</button>
+        <p class="warning" id="warningr"></p>
+      </form>
+    </div>
+    <div class="form-container sign-in-container">
+      <form id="formulario" [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
+        <h1>Iniciar sesión</h1>
+        <div class="infield">
+          <input type="email" placeholder="Correo Electrónico" id="logemail" name="logemail" formControlName="email">
+          <label></label>
+          <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid" class="error-message">Ingresa un correo válido.</div>
+        </div>
+        <div class="infield">
+          <input type="password" placeholder="Contraseña" id="logpassword" name="logpassword" formControlName="password">
+          <label></label>
+          <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" class="error-message">Ingresa tu contraseña.</div>
+        </div>
+        <a href="#" class="forgot">¿Olvidaste tu contraseña?</a>
+        <button type="submit">Iniciar sesión</button>
+        <p class="warning" id="warning"></p>
+      </form>
+    </div>
+    <div class="overlay-container" id="overlayCon" #overlayCon>
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <h1>Comienza a Registrar</h1>
+          <p></p>
+          <button>Iniciar sesión</button>
+        </div>
+        <div class="overlay-panel overlay-right">
+          <h1>Comienza a Aprender</h1>
+          <p></p>
+          <button>Registrar</button>
+        </div>
+      </div>
+      <button id="overlayBtn" (click)="toggleContainer()" class="ghost"></button>
+    </div>
+  </div>
+</div>

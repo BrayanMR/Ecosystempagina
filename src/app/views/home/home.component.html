@@ -1,0 +1,180 @@
+<app-navbar></app-navbar>
+<main class="mt-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="flex flex-col md:flex-row md:space-x-6 space-y-6 md:space-y-0">
+    <!-- Sidebar izquierda -->
+    <section class="md:w-1/4">
+      <div class="bg-white p-4 rounded-lg shadow space-y-4">
+        <div class="flex items-center space-x-3">
+          <div class="w-16 h-16 bg-gray-300 rounded-full overflow-hidden">
+            <img *ngIf="photoUrl" [src]="photoUrl" alt="Imagen" class="w-full h-full object-cover">
+          </div>
+          <div class="flex flex-col" *ngIf="usuarioActual?.uid">
+            <span class="font-semibold text-gray-1200">Hola</span>
+            <span class="text-sm text-gray-800">{{ usuarioActual.name }}</span>
+          </div>
+        </div>
+        <div class="space-y-2">
+          <span class="font-semibold text-gray-1200">puntajes: {{ usuarioActual?.points || 0 }}</span>
+          <a  routerLink="/profile"  class="block text-gray-900 hover:bg-gray-50 rounded-md p-2">Tus Posts</a>
+          <a href="#" class="block text-gray-900 hover:bg-gray-50 rounded-md p-2">Favoritos</a>
+          <a href="#" class="block text-gray-900 hover:bg-gray-50 rounded-md p-2">Opción</a>
+        </div>
+
+        <div *ngIf="challenges.length > 0" class="mt-8">
+          <h2 class="font-semibold text-2xl mb-4">Retos Activos:</h2>
+          <ul>
+              <li *ngFor="let challenge of challenges" class="mb-4 p-4 bg-white shadow-md rounded-lg">
+                  <h3 class="text-xl font-semibold mb-2">{{ challenge.nombreReto }}</h3>
+                  <p class="text-gray-700">{{ challenge.descripcion }}</p>
+                  <button class="mt-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg focus:outline-none"
+                          (click)="openModal(true, challenge)">Unirse al Reto
+                  </button>
+              </li>
+          </ul>
+      </div>
+      
+      
+
+        <!-- Modal de publicación de fotos para retos -->
+        <div *ngIf="isChallengeModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+            <button class="text-gray-500 hover:text-gray-700 float-right" (click)="closeModal()">×</button>
+            <h2 class="text-2xl mb-4">Subir Foto para el Reto: {{ currentChallenge?.nombreReto }}</h2>
+            <input type="file" (change)="onFileSelected($event)" class="mb-4" />
+            <input type="text" [(ngModel)]="postDescription" placeholder="Descripción" class="mb-4 px-4 py-2 border border-gray-300 rounded-md w-full" />
+            <button (click)="uploadFile()" class="px-4 py-2 bg-blue-500 text-white rounded-md">Enviar</button>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded-lg shadow mt-6">
+        <h3 class="font-semibold text-gray-900 mb-4">Mis Amigos</h3>
+        <div class="space-y-3">
+          <div *ngFor="let friend of friends" class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-gray-300 rounded-full overflow-hidden">
+              <img *ngIf="friend.urlImagen" [src]="friend.urlImagen" alt="Imagen" class="w-full h-full object-cover">
+            </div>
+            <span class="text-sm font-medium text-gray-900">{{ friend.name }}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección principal de publicaciones -->
+    <section class="md:w-1/2">
+      <div class="bg-white p-4 rounded-lg shadow space-y-4">
+        <!-- Nueva publicación -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 bg-gray-50 rounded-full overflow-hidden">
+            <img *ngIf="photoUrl" [src]="photoUrl" alt="Imagen" class="w-full h-full object-cover">
+          </div>
+          <input
+            placeholder="Escribe tu publicación"
+            class="flex-1 px-4 py-2 border border-gray-300 rounded-md"
+            type="text"
+            (click)="openModal()"
+          />
+        </div>
+
+        <!-- Modal -->
+        <div *ngIf="isModalOpen" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+            <button class="text-gray-500 hover:text-gray-700 float-right" (click)="closeModal()">×</button>
+            <h2 class="text-2xl mb-4">Publicar</h2>
+            <textarea
+              placeholder="Escribe tu publicación"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md mb-4"
+              rows="4"
+              [(ngModel)]="postDescription"
+            ></textarea>
+            <input type="file" (change)="onFileSelected($event)" class="mb-4" />
+            <button (click)="uploadFile()" class="px-4 py-2 bg-blue-500 text-white rounded-md">Publicar</button>
+          </div>
+        </div>
+        <!-- Publicaciones existentes -->
+        <div class="bg-white p-4 rounded-lg shadow mt-6 space-y-4" *ngFor="let post of posts">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-gray-300 rounded-full overflow-hidden">
+              <img *ngIf="post.userProfileUrl" [src]="post.userProfileUrl" alt="Imagen" class="w-full h-full object-cover">
+            </div>
+            <div class="flex flex-col">
+              <div class="flex justify-between items-center">
+                <span class="text-sm font-medium text-gray-700">{{ post.userName }}</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-sm text-gray-500">{{ post.curso }}</span>
+              <span *ngIf="post.isActiveChallenge" class="bg-yellow-500 text-white px-2 py-1 rounded-lg">reto</span>
+              </div>
+              
+            </div>
+          </div>
+          <div class="flex items-center space-x-3">
+            <div class="flex-1">
+              <span class="text-sm font-medium text-gray-700">{{ post.description }}</span>
+              <div class="bg-gray-200 rounded-lg h-48" [style.background-image]="'url(' + post.imageUrl + ')'" style="background-size: cover; background-position: center;"></div>
+              <div class="flex justify-between items-center mt-2">
+                <span class="text-sm font-medium text-gray-700">{{ post.timestamp | date:'short' }}</span>
+                <span>{{ Object.keys(post.hearts || {}).length }}</span>
+
+                <button 
+                  (click)="toggleHeart(post.id)" 
+                  [class.text-red-500]="post.hearts[usuarioActual.uid]"
+                  class="text-gray-500 hover:text-gray-900">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="h-6 w-6"
+                  >
+                    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        
+
+        
+      </div>
+    </section>
+
+    <!-- Sidebar derecha -->
+      <!-- Sidebar derecha -->
+      <section class="md:w-1/4">
+        <div class="bg-white p-4 rounded-lg shadow">
+          <h3 class="font-semibold text-gray-900 mb-4">Top Posts</h3>
+          <div class="space-y-3" *ngFor="let topPost of topPosts">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 bg-gray-300 rounded-full overflow-hidden">
+                <img *ngIf="topPost.userProfileUrl" [src]="topPost.userProfileUrl" alt="Imagen" class="w-full h-full object-cover">
+              </div>
+              <div class="flex-1">
+                <div class="bg-gray-200 rounded-lg h-24" [style.background-image]="'url(' + topPost.imageUrl + ')'" style="background-size: cover; background-position: center;"></div>
+                <span class="text-sm font-medium text-gray-900">{{ topPost.userName }}</span>
+                <span class="text-sm font-medium text-gray-700">♥{{ Object.keys(topPost.hearts ?? {}).length }}</span>              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-lg shadow mt-6">
+          <h3 class="font-semibold text-gray-900 mb-4">Los Retos</h3>
+          <div class="space-y-3">
+            <div class="bg-gray-200 rounded-lg h-24 p-2">
+              <span class="text-sm font-medium text-gray-900">Challenge 1</span>
+              <img  [src]="Reto01" alt="Imagen" class="w-full h-full object-cover">
+            </div>
+            <div class="bg-gray-200 rounded-lg h-24 p-2">
+              <span class="text-sm font-medium text-gray-900">Challenge 2</span>
+              <img  [src]="Reto02" alt="Imagen" class="w-full h-full object-cover">
+            </div>
+          </div>
+        </div>
+      </section>
+  </div>
+</main>

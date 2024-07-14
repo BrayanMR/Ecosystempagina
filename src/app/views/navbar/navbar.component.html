@@ -1,0 +1,28 @@
+<nav class="navbar" id="navbar">
+    <div class="navbar-left">
+      <img [src]="logoUrl" alt="App Logo" class="logo" width="60" />
+      <h1 style="color: #401201;">ECO-SYSTEM</h1>
+    </div>
+    <div class="navbar-center" id="letras">
+      <button class="nav-button"routerLink="/home">Inicio</button>
+      <button class="nav-button">Contacto</button>
+      <button class="nav-button">Quiénes Somos</button>
+    </div>
+    <div class="navbar-right">
+      <fa-icon [icon]="['fas', 'search']" class="icon"></fa-icon>
+      <div class="separator" style="background-color: #401201;"></div>
+      <a routerLink="/perfil" class="icon">
+        <fa-icon [icon]="['fas', 'user-alt']" class="icon"></fa-icon>
+      </a>
+      <button class="navcerrar" (click)="logout()">Cerrar Sesión</button>    </div>
+    <div class="navbar-toggle" (click)="toggleMenu()">
+      <fa-icon [icon]="['fas', 'bars']"></fa-icon>
+    </div>
+    
+    <div id="navbarDropdown" class="navbar-dropdown">
+      <button class="nav-button">Inicio</button>
+      <button class="nav-button">Contacto</button>
+      <button class="nav-button">Quiénes Somos</button>
+      <button class="nav-button">Cerrar Sesión</button>
+    </div>
+  </nav>

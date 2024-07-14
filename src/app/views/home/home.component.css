@@ -1,0 +1,15 @@
+.bg-yellow-100 {
+  background-color: #fefcbf;
+}
+
+.challenge-post {
+  background-color: yellow;
+}
+
+.inactive-challenge-post {
+  background-color: initial;
+}
+
+.active-challenge {
+  background-color: yellow;
+}

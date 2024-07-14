@@ -1,0 +1,25 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.content-container {
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+.card {
+    height: 250px;
+    /* Ajusta la altura según sea necesario */
+}
+.hidden {
+    display: none;
+  }
+  
+
