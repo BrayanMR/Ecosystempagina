@@ -1,16 +1,10 @@
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter, withHashLocation } from '@angular/router';
 import { initializeApp } from "firebase/app";
-import firebase from 'firebase/app';
-import 'firebase/storage';
-import{ AngularFireModule} from '@angular/fire/compat';
-import{AngularFirestoreModule} from '@angular/fire/compat/firestore';
+import { AngularFireModule } from '@angular/fire/compat';
 import { routes } from './app.routes';
-import { provideClientHydration } from '@angular/platform-browser';
-import { HttpClient } from '@angular/common/http';
-import { initializeApp as initializeApp_alias, provideFirebaseApp } from '@angular/fire/app';
-import { getAuth, provideAuth } from '@angular/fire/auth';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { provideHttpClient } from '@angular/common/http';
+
 const firebaseConfig = {
   apiKey: "AIzaSyA_JlO-mpuzPpywPa8jPMPyrbwxUItanaQ",
   authDomain: "ecosystems-f5e54.firebaseapp.com",
@@ -24,10 +18,12 @@ initializeApp(firebaseConfig);
 
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes,withHashLocation()),
-    importProvidersFrom(HttpClient,
+  providers: [
+    provideRouter(routes, withHashLocation()),
+    provideHttpClient(),
+    importProvidersFrom(
       AngularFireModule.initializeApp(firebaseConfig),
       AngularFireModule
     )
-    ]
-  };
+  ]
+};

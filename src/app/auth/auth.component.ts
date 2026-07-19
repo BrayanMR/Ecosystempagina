@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, AfterViewInit, inject, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from './user.model';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -16,9 +16,34 @@ import Swal from 'sweetalert2';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css']
 })
-export class AuthComponent {
-  
-  
+export class AuthComponent implements AfterViewInit {
+
+  @ViewChild('bgVideo') bgVideo!: ElementRef<HTMLVideoElement>;
+
+  ngAfterViewInit() {
+    // Forzamos la reproducción del video de fondo.
+    // El autoplay a veces no se respeta en Angular (SPA), por eso lo
+    // disparamos manualmente desde aquí tras el render del DOM.
+    const video = this.bgVideo?.nativeElement;
+    if (video) {
+      video.muted = true;
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Si el navegador bloquea el autoplay, reintentamos al primer
+          // clic/tecla del usuario (política de autoplay de Chrome).
+          const resume = () => {
+            video.play().catch(() => {});
+            window.removeEventListener('click', resume);
+            window.removeEventListener('keydown', resume);
+          };
+          window.addEventListener('click', resume, { once: true });
+          window.addEventListener('keydown', resume, { once: true });
+        });
+      }
+    }
+  }
+
   toggleContainer() {
     const container = document.getElementById('container');
     container?.classList.toggle('right-panel-active');
@@ -45,7 +70,6 @@ export class AuthComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
   private snackBar = inject(MatSnackBar);
-  private 
 
   async loginSubmit() {
     if (this.loginForm.valid) {
@@ -61,32 +85,22 @@ export class AuthComponent {
           timer: 700
         });
       } catch (error: any) {
-        
         console.error(error);
         let errorMessage = 'Error de inicio de sesión!';
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: errorMessage, // Usa la variable errorMessage que ya tienes
-          showConfirmButton: true,
-          confirmButtonText: 'Cerrar'
-        });
         if (error.message === 'User not approved') {
-          
           errorMessage = 'Usuario no aprobado!';
-        } else if (error.message === 'auth/wrong-password') {
+        } else if (error.code === 'auth/wrong-password' || error.message === 'auth/wrong-password') {
           errorMessage = 'La contraseña es incorrecta!';
-        } else if (error.message === 'auth/user-not-found') {
+        } else if (error.code === 'auth/user-not-found' || error.message === 'auth/user-not-found') {
           errorMessage = 'Usuario no encontrado!';
         }
         Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: errorMessage, // Usa la variable errorMessage que ya tienes
-        showConfirmButton: true,
-        confirmButtonText: 'Cerrar'
-      })
- 
+          icon: 'error',
+          title: 'Error',
+          text: errorMessage,
+          showConfirmButton: true,
+          confirmButtonText: 'Cerrar'
+        });
       }
     } else {
       this.snackBar.open('Por favor, completa todos los campos correctamente.', 'Cerrar', { duration: 3000 });

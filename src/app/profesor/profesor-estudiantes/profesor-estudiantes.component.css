@@ -12,7 +12,3 @@ body {
 .card {
     height: 250px; /* Ajusta la altura según sea necesario */
 }
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-

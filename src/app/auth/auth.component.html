@@ -1,106 +1,239 @@
-<div class="body">
-  <div class="container" id="container">
-    <div class="form-container sign-up-container">
-      <form id="registrar" [formGroup]="registerForm" (ngSubmit)="registerSubmit()">
-        <h1>Crear una cuenta</h1>
-        <div class="infield">
-          <select id="seleci" name="role" formControlName="role" placeholder="Rol">
-            <option value="" disabled selected>Profesor o Estudiante </option>
-            <option value="estudiante">Estudiante</option>
-            <option value="profesor">Profesor</option>
-          </select>
-          <label></label>
-          <div *ngIf="registerForm.get('role')?.touched && registerForm.get('role')?.invalid" class="error-message">Selecciona un rol.</div>
+<div class="auth-body">
+  <div class="auth-wrapper" id="container">
+
+    <!-- ============ COLUMNA IZQUIERDA: BRANDING ============ -->
+    <aside class="auth-branding">
+      <video #bgVideo class="branding-video" muted loop playsinline preload="auto">
+        <source src="/img/falling-leaves.mp4" type="video/mp4" />
+      </video>
+      <div class="branding-overlay"></div>
+      <div class="branding-content">
+        <div class="brand-logo">
+          <span class="brand-leaf">&#127807;</span>
+          <span class="brand-name">Ecosystem</span>
         </div>
-        <div>
-          <h6>Foto de perfil</h6>
-          <input type="file" id="photo" name="photo" formControlName="photo" accept="image/*" (change)="cargarImagen($event, 'photo')">
-          <div *ngIf="registerForm.get('photo')?.touched && registerForm.get('photo')?.invalid" class="error-message">Sube una foto.</div>
-        </div>
-        <div>
-          <h6>Constancia o carnet</h6>
-          <input type="file" id="certificate" name="certificate" formControlName="certificate" accept="application/pdf" (change)="cargarImagen($event, 'certificate')">
-          <div *ngIf="registerForm.get('certificate')?.touched && registerForm.get('certificate')?.invalid" class="error-message">Sube una constancia o carnet.</div>
-        </div>
-        <div class="infield">
-          <input type="text" placeholder="Nombre" id="namer" name="name" formControlName="name">
-          <label></label>
-          <div *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid" class="error-message">Ingresa tu nombre.</div>
-        </div>
-        <div class="infield">
-          <input type="text" placeholder="Apellido" id="lastname" name="lastname" formControlName="lastname">
-          <label></label>
-          <div *ngIf="registerForm.get('lastname')?.touched && registerForm.get('lastname')?.invalid" class="error-message">Ingresa tu apellido.</div>
-        </div>
-        <div class="infield">
-          <select id= "dos" id="institucion" name="institucion" formControlName="institucion" placeholder="Institución">
-            <option value="" disabled selected>Institución</option>
-            <option value="Roberto Velandia">Roberto Velandia</option>
-            <option value="SENA">SENA</option>
-            <option value="LA PAZ">LA PAZ</option>
-          </select>
-          <label></label>
-        </div>
-        <div class="infield">
-          <select  id= "dos" id="curso" name="curso" formControlName="curso" placeholder="curso">
-            <option value="" disabled selected>Curso</option>
-            <option value="101">101</option>
-            <option value="102">102</option>
-            <option value="103">103</option>
-          </select>
-          <label></label>
-        </div>
-        <div class="infield">
-          <input type="text" placeholder="Identificación" id="identificacion" name="identificacion" formControlName="identificacion">
-          <label></label>
-          <div *ngIf="registerForm.get('identificacion')?.touched && registerForm.get('identificacion')?.invalid" class="error-message">Ingresa tu identificación.</div>
-        </div>
-        <div class="infield">
-          <input type="email" placeholder="Correo Electrónico" id="email" name="email" formControlName="email">
-          <label></label>
-          <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid" class="error-message">Ingresa un correo válido.</div>
-        </div>
-        <div class="infield">
-          <input type="password" placeholder="Contraseña" id="subpassword" name="subpassword" formControlName="password">
-          <label></label>
-          <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" class="error-message">Ingresa una contraseña de al menos 6 caracteres.</div>
-        </div>
-        <button type="submit">Crear cuenta</button>
-        <p class="warning" id="warningr"></p>
-      </form>
-    </div>
-    <div class="form-container sign-in-container">
-      <form id="formulario" [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
-        <h1>Iniciar sesión</h1>
-        <div class="infield">
-          <input type="email" placeholder="Correo Electrónico" id="logemail" name="logemail" formControlName="email">
-          <label></label>
-          <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid" class="error-message">Ingresa un correo válido.</div>
-        </div>
-        <div class="infield">
-          <input type="password" placeholder="Contraseña" id="logpassword" name="logpassword" formControlName="password">
-          <label></label>
-          <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" class="error-message">Ingresa tu contraseña.</div>
-        </div>
-        <a href="#" class="forgot">¿Olvidaste tu contraseña?</a>
-        <button type="submit">Iniciar sesión</button>
-        <p class="warning" id="warning"></p>
-      </form>
-    </div>
-    <div class="overlay-container" id="overlayCon" #overlayCon>
-      <div class="overlay">
-        <div class="overlay-panel overlay-left">
-          <h1>Comienza a Registrar</h1>
-          <p></p>
-          <button>Iniciar sesión</button>
-        </div>
-        <div class="overlay-panel overlay-right">
-          <h1>Comienza a Aprender</h1>
-          <p></p>
-          <button>Registrar</button>
+        <h2 class="brand-title">Aprende, crece y<br/>construye tu futuro</h2>
+        <p class="brand-subtitle">
+          Ingresa a tu cuenta para continuar tu camino de aprendizaje,
+          retos y reconocimiento académico.
+        </p>
+        <ul class="brand-features">
+          <li><span>&#10003;</span> Retos educativos interactivos</li>
+          <li><span>&#10003;</span> Seguimiento de progreso y puntos</li>
+          <li><span>&#10003;</span> Conecta con profesores y compañeros</li>
+        </ul>
+        <p class="brand-copy">&copy; 2026 Ecosystem. Todos los derechos reservados.</p>
+      </div>
+    </aside>
+
+    <!-- ============ COLUMNA DERECHA: FORMULARIOS ============ -->
+    <section class="auth-forms">
+
+      <!-- ============ LOGIN ============ -->
+      <div class="form-box form-login">
+        <div class="form-inner">
+          <header class="form-header">
+            <h1>Login</h1>
+            <p class="form-subtitle">Bienvenido de nuevo, te extrañamos &#128075;</p>
+          </header>
+
+          <form id="formulario" [formGroup]="loginForm" (ngSubmit)="loginSubmit()" novalidate>
+            <div class="field">
+              <label for="logemail">Email</label>
+              <div class="input-wrap">
+                <svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5Z"/>
+                </svg>
+                <input type="email" id="logemail" name="logemail"
+                       placeholder="Ingresa tu correo"
+                       formControlName="email" autocomplete="email" />
+              </div>
+              <small class="error-message"
+                     *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+                Ingresa un correo válido.
+              </small>
+            </div>
+
+            <div class="field">
+              <label for="logpassword">Password</label>
+              <div class="input-wrap">
+                <svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 17a2 2 0 1 0-2-2 2 2 0 0 0 2 2Zm6-9h-1V6a5 5 0 1 0-10 0v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2ZM9 6a3 3 0 1 1 6 0v2H9Z"/>
+                </svg>
+                <input type="password" id="logpassword" name="logpassword"
+                       placeholder="Ingresa tu contraseña"
+                       formControlName="password" autocomplete="current-password" />
+              </div>
+              <small class="error-message"
+                     *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+                Ingresa tu contraseña.
+              </small>
+            </div>
+
+            <div class="form-row-between">
+              <label class="remember">
+                <input type="checkbox" id="remember" name="remember" />
+                <span>Recordarme</span>
+              </label>
+              <a href="#" class="forgot" (click)="$event.preventDefault()">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn-primary" [disabled]="loginForm.invalid">
+              <span>Login</span>
+            </button>
+
+            <p class="warning" id="warning"></p>
+          </form>
+
+          <p class="switch-text">
+            Don't have an account?
+            <a href="#" class="switch-link" (click)="toggleContainer(); $event.preventDefault()">Sign up</a>
+          </p>
         </div>
       </div>
-      <button id="overlayBtn" (click)="toggleContainer()" class="ghost"></button>
-    </div>
+
+      <!-- ============ REGISTRO ============ -->
+      <div class="form-box form-signup">
+        <div class="form-inner form-inner-scroll">
+          <header class="form-header">
+            <h1>Crear cuenta</h1>
+            <p class="form-subtitle">Únete a la comunidad de Ecosystem</p>
+          </header>
+
+          <form id="registrar" [formGroup]="registerForm" (ngSubmit)="registerSubmit()" novalidate>
+            <div class="field">
+              <label for="role">Rol</label>
+              <div class="input-wrap">
+                <select id="seleci" name="role" formControlName="role">
+                  <option value="" disabled selected>Profesor o Estudiante</option>
+                  <option value="estudiante">Estudiante</option>
+                  <option value="profesor">Profesor</option>
+                </select>
+              </div>
+              <small class="error-message"
+                     *ngIf="registerForm.get('role')?.touched && registerForm.get('role')?.invalid">
+                Selecciona un rol.
+              </small>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="photo">Foto de perfil</label>
+                <input class="file-input" type="file" id="photo" name="photo"
+                       formControlName="photo" accept="image/*"
+                       (change)="cargarImagen($event, 'photo')" />
+                <small class="error-message"
+                       *ngIf="registerForm.get('photo')?.touched && registerForm.get('photo')?.invalid">
+                  Sube una foto.
+                </small>
+              </div>
+              <div class="field">
+                <label for="certificate">Constancia o carnet</label>
+                <input class="file-input" type="file" id="certificate" name="certificate"
+                       formControlName="certificate" accept="application/pdf"
+                       (change)="cargarImagen($event, 'certificate')" />
+                <small class="error-message"
+                       *ngIf="registerForm.get('certificate')?.touched && registerForm.get('certificate')?.invalid">
+                  Sube una constancia o carnet.
+                </small>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="namer">Nombre</label>
+                <div class="input-wrap">
+                  <input type="text" id="namer" name="name" placeholder="Tu nombre" formControlName="name" />
+                </div>
+                <small class="error-message"
+                       *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid">
+                  Ingresa tu nombre.
+                </small>
+              </div>
+              <div class="field">
+                <label for="lastname">Apellido</label>
+                <div class="input-wrap">
+                  <input type="text" id="lastname" name="lastname" placeholder="Tu apellido" formControlName="lastname" />
+                </div>
+                <small class="error-message"
+                       *ngIf="registerForm.get('lastname')?.touched && registerForm.get('lastname')?.invalid">
+                  Ingresa tu apellido.
+                </small>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="institucion">Institución</label>
+                <div class="input-wrap">
+                  <select id="institucion" name="institucion" formControlName="institucion">
+                    <option value="" disabled selected>Institución</option>
+                    <option value="Roberto Velandia">Roberto Velandia</option>
+                    <option value="SENA">SENA</option>
+                    <option value="LA PAZ">LA PAZ</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field">
+                <label for="curso">Curso</label>
+                <div class="input-wrap">
+                  <select id="curso" name="curso" formControlName="curso">
+                    <option value="" disabled selected>Curso</option>
+                    <option value="101">101</option>
+                    <option value="102">102</option>
+                    <option value="103">103</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="identificacion">Identificación</label>
+              <div class="input-wrap">
+                <input type="text" id="identificacion" name="identificacion" placeholder="Tu número de identificación" formControlName="identificacion" />
+              </div>
+              <small class="error-message"
+                     *ngIf="registerForm.get('identificacion')?.touched && registerForm.get('identificacion')?.invalid">
+                Ingresa tu identificación.
+              </small>
+            </div>
+
+            <div class="field">
+              <label for="email">Correo Electrónico</label>
+              <div class="input-wrap">
+                <input type="email" id="email" name="email" placeholder="Tu correo electrónico" formControlName="email" />
+              </div>
+              <small class="error-message"
+                     *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
+                Ingresa un correo válido.
+              </small>
+            </div>
+
+            <div class="field">
+              <label for="subpassword">Contraseña</label>
+              <div class="input-wrap">
+                <input type="password" id="subpassword" name="subpassword" placeholder="Mínimo 6 caracteres" formControlName="password" />
+              </div>
+              <small class="error-message"
+                     *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
+                Ingresa una contraseña de al menos 6 caracteres.
+              </small>
+            </div>
+
+            <button type="submit" class="btn-primary" [disabled]="registerForm.invalid">
+              <span>Crear cuenta</span>
+            </button>
+
+            <p class="warning" id="warningr"></p>
+          </form>
+
+          <p class="switch-text">
+            Already have an account?
+            <a href="#" class="switch-link" (click)="toggleContainer(); $event.preventDefault()">Sign in</a>
+          </p>
+        </div>
+      </div>
+
+    </section>
   </div>
 </div>
