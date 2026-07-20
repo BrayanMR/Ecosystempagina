@@ -10,8 +10,10 @@
         "serve:ssr:ecosystem": "node dist/ecosystem/server/server.mjs"
     },
     "private": true,
+    "engines": {
+        "node": "20.x"
+    },
     "dependencies": {
-        "'": "file:angular/fire@next'",
         "@angular/animations": "^18.0.0",
         "@angular/cdk": "^18.0.2",
         "@angular/common": "^18.0.0",

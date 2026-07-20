@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, ElementRef, AfterViewInit, inject, ViewChild } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, ElementRef, AfterViewInit, inject, PLATFORM_ID, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from './user.model';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -20,7 +20,16 @@ export class AuthComponent implements AfterViewInit {
 
   @ViewChild('bgVideo') bgVideo!: ElementRef<HTMLVideoElement>;
 
+  private platformId = inject(PLATFORM_ID);
+
   ngAfterViewInit() {
+    // El video solo existe en el navegador. Durante el SSR no hay DOM real
+    // y nativeElement no tiene .play(), así que saltamos todo este bloque
+    // cuando estamos renderizando en el servidor.
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
     // Forzamos la reproducción del video de fondo.
     // El autoplay a veces no se respeta en Angular (SPA), por eso lo
     // disparamos manualmente desde aquí tras el render del DOM.

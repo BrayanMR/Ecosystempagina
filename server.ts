@@ -1,7 +1,7 @@
 import { APP_BASE_HREF } from '@angular/common';
 import { CommonEngine } from '@angular/ssr';
 import express from 'express';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import bootstrap from './src/main.server';
 
@@ -54,4 +54,14 @@ function run(): void {
   });
 }
 
-run();
+// Export the Express API so it can be consumed by Vercel's serverless functions.
+// Only start listening when run directly in local development, not when imported
+// by the serverless entry point (api/index.mjs).
+const isMainModule =
+  import.meta.url === pathToFileURL(process.argv[1] ?? '').href;
+
+export default app;
+
+if (isMainModule) {
+  run();
+}
