@@ -5,8 +5,8 @@
     </div>
     <div class="navbar-center" id="letras">
       <button class="nav-button"routerLink="/home">Inicio</button>
-      <button class="nav-button">Contacto</button>
-      <button class="nav-button">Quiénes Somos</button>
+      <button class="nav-button" routerLink="/contacto">Contacto</button>
+      <button class="nav-button" routerLink="/quienes-somos">Quiénes Somos</button>
     </div>
     <div class="navbar-right">
       <fa-icon [icon]="['fas', 'search']" class="icon"></fa-icon>
@@ -20,9 +20,9 @@
     </div>
     
     <div id="navbarDropdown" class="navbar-dropdown">
-      <button class="nav-button">Inicio</button>
-      <button class="nav-button">Contacto</button>
-      <button class="nav-button">Quiénes Somos</button>
-      <button class="nav-button">Cerrar Sesión</button>
+      <button class="nav-button" routerLink="/home">Inicio</button>
+      <button class="nav-button" routerLink="/contacto">Contacto</button>
+      <button class="nav-button" routerLink="/quienes-somos">Quiénes Somos</button>
+      <button class="nav-button" (click)="logout()">Cerrar Sesión</button>
     </div>
   </nav>

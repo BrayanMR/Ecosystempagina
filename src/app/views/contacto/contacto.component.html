@@ -1,0 +1,83 @@
+<app-navbar></app-navbar>
+
+<!-- Hero -->
+<section class="ct-hero">
+  <div class="ct-hero-content">
+    <h1>Contacto</h1>
+    <p>¿Tienes preguntas, sugerencias o quieres unir tu colegio? Escríbenos.</p>
+  </div>
+</section>
+
+<section class="ct-wrap">
+  <!-- Info de contacto -->
+  <div class="ct-info">
+    <h2>Hablemos</h2>
+    <p class="ct-info-text">
+      Estamos aquí para ayudarte. Elige el canal que prefieras o envíanos un
+      mensaje usando el formulario.
+    </p>
+
+    @for (info of contactoInfo; track info.label) {
+      <div class="ct-info-item">
+        <span class="ct-info-icon">{{ info.icon }}</span>
+        <div>
+          <span class="ct-info-label">{{ info.label }}</span>
+          <span class="ct-info-valor">{{ info.valor }}</span>
+        </div>
+      </div>
+    }
+
+    <div class="ct-redes">
+      @for (red of redes; track red.nombre) {
+        <a [href]="red.url" class="ct-red" [attr.aria-label]="red.nombre" target="_blank" rel="noopener">
+          {{ red.icon }}
+        </a>
+      }
+    </div>
+  </div>
+
+  <!-- Formulario -->
+  <form class="ct-form" [formGroup]="form" (ngSubmit)="enviar()">
+    <h2>Envíanos un mensaje</h2>
+
+    <div class="ct-field">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" type="text" formControlName="nombre" placeholder="Tu nombre" />
+      @if (esInvalido('nombre')) {
+        <small class="ct-error">El nombre es obligatorio (mínimo 3 caracteres).</small>
+      }
+    </div>
+
+    <div class="ct-field">
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" placeholder="tucorreo@ejemplo.com" />
+      @if (esInvalido('email')) {
+        <small class="ct-error">Introduce un email válido.</small>
+      }
+    </div>
+
+    <div class="ct-field">
+      <label for="asunto">Asunto</label>
+      <input id="asunto" type="text" formControlName="asunto" placeholder="¿Sobre qué nos escribes?" />
+      @if (esInvalido('asunto')) {
+        <small class="ct-error">El asunto es obligatorio.</small>
+      }
+    </div>
+
+    <div class="ct-field">
+      <label for="mensaje">Mensaje</label>
+      <textarea id="mensaje" rows="5" formControlName="mensaje" placeholder="Escribe tu mensaje aquí..."></textarea>
+      @if (esInvalido('mensaje')) {
+        <small class="ct-error">El mensaje debe tener al menos 10 caracteres.</small>
+      }
+    </div>
+
+    <button type="submit" class="ct-submit" [disabled]="form.invalid">
+      Enviar mensaje
+    </button>
+
+    @if (enviado) {
+      <p class="ct-ok">✓ ¡Gracias! Tu mensaje fue enviado correctamente.</p>
+    }
+  </form>
+</section>

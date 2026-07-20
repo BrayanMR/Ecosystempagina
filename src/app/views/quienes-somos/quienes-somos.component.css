@@ -1,0 +1,213 @@
+:host {
+  --qs-marron: #401201;
+  --qs-marron-claro: #6b1f15;
+  --qs-beige: #f5ede3;
+  --qs-beige-oscuro: #e8dac6;
+  display: block;
+  background: var(--qs-beige);
+  min-height: 100vh;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* ===== Hero ===== */
+.qs-hero {
+  background: linear-gradient(135deg, var(--qs-marron) 0%, var(--qs-marron-claro) 100%);
+  color: #fff;
+  padding: 6rem 1.5rem 5rem;
+  text-align: center;
+}
+
+.qs-hero-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 50%;
+  padding: 8px;
+  margin-bottom: 1.25rem;
+}
+
+.qs-hero h1 {
+  font-size: 2.5rem;
+  margin: 0 0 1rem;
+  font-weight: 500;
+}
+
+.qs-hero p {
+  max-width: 720px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  opacity: 0.95;
+}
+
+/* ===== Secciones genéricas ===== */
+.qs-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+
+.qs-section--alt {
+  max-width: none;
+  background: #fff;
+}
+
+.qs-section-title {
+  text-align: center;
+  color: var(--qs-marron);
+  font-size: 2rem;
+  font-weight: 500;
+  margin: 0 0 2.5rem;
+}
+
+/* ===== Misión / Visión ===== */
+.qs-mv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.qs-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 2rem;
+  box-shadow: 0 6px 20px rgba(64, 18, 1, 0.08);
+  border-top: 4px solid var(--qs-marron);
+}
+
+.qs-card--vision {
+  border-top-color: var(--qs-marron-claro);
+}
+
+.qs-card h2 {
+  color: var(--qs-marron);
+  margin: 0 0 1rem;
+  font-weight: 500;
+}
+
+.qs-card p {
+  color: #4a3f38;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ===== Valores ===== */
+.qs-valores-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.qs-valor {
+  background: var(--qs-beige);
+  border-radius: 14px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.qs-valor:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(64, 18, 1, 0.12);
+}
+
+.qs-valor-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.qs-valor h3 {
+  color: var(--qs-marron);
+  margin: 0 0 0.5rem;
+  font-weight: 500;
+}
+
+.qs-valor p {
+  color: #5e5147;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ===== Equipo ===== */
+.qs-equipo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.qs-miembro {
+  text-align: center;
+}
+
+.qs-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--qs-marron), var(--qs-marron-claro));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  font-weight: 500;
+  margin: 0 auto 1rem;
+}
+
+.qs-miembro h3 {
+  color: var(--qs-marron);
+  margin: 0 0 0.25rem;
+  font-weight: 500;
+}
+
+.qs-miembro span {
+  color: #7a6b5f;
+  font-size: 0.9rem;
+}
+
+/* ===== CTA ===== */
+.qs-cta {
+  background: var(--qs-beige-oscuro);
+  text-align: center;
+  padding: 4rem 1.5rem;
+}
+
+.qs-cta h2 {
+  color: var(--qs-marron);
+  margin: 0 0 0.75rem;
+  font-weight: 500;
+}
+
+.qs-cta p {
+  color: #5e5147;
+  margin: 0 0 1.5rem;
+}
+
+.qs-cta-btn {
+  display: inline-block;
+  background: var(--qs-marron);
+  color: #fff;
+  padding: 0.85rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.qs-cta-btn:hover {
+  background: var(--qs-marron-claro);
+  transform: translateY(-2px);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .qs-hero h1 { font-size: 2rem; }
+  .qs-hero { padding: 4rem 1.25rem 3rem; }
+  .qs-section { padding: 3rem 1.25rem; }
+}

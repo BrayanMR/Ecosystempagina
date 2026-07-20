@@ -1,0 +1,71 @@
+<app-navbar></app-navbar>
+
+<!-- Hero -->
+<section class="qs-hero">
+  <div class="qs-hero-content">
+    <img [src]="logoUrl" alt="ECO-SYSTEM" class="qs-hero-logo" />
+    <h1>Quiénes Somos</h1>
+    <p>
+      ECO-SYSTEM es la plataforma que conecta estudiantes, profesores y colegios
+      para transformar el aprendizaje en una experiencia viva, colaborativa y con
+      propósito.
+    </p>
+  </div>
+</section>
+
+<!-- Misión y Visión -->
+<section class="qs-section">
+  <div class="qs-mv-grid">
+    <div class="qs-card qs-card--mision">
+      <h2>Misión</h2>
+      <p>
+        Brindar un espacio donde el conocimiento se construya haciendo. Que cada
+        estudiante enfrente retos reales, reciba retroalimentación de sus
+        profesores y deje huella de su crecimiento.
+      </p>
+    </div>
+    <div class="qs-card qs-card--vision">
+      <h2>Visión</h2>
+      <p>
+        Ser la comunidad educativa de referencia en Latinoamérica, donde la
+        colaboración entre colegios, docentes y estudiantes impulse una educación
+        más práctica, equitativa y motivadora.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Valores -->
+<section class="qs-section qs-section--alt">
+  <h2 class="qs-section-title">Nuestros valores</h2>
+  <div class="qs-valores-grid">
+    @for (valor of valores; track valor.titulo) {
+      <div class="qs-valor">
+        <div class="qs-valor-icon">{{ valor.icon }}</div>
+        <h3>{{ valor.titulo }}</h3>
+        <p>{{ valor.descripcion }}</p>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- Equipo -->
+<section class="qs-section">
+  <h2 class="qs-section-title">El equipo</h2>
+  <div class="qs-equipo-grid">
+    @for (miembro of equipo; track miembro.nombre) {
+      <div class="qs-miembro">
+        <div class="qs-avatar">{{ miembro.initials }}</div>
+        <h3>{{ miembro.nombre }}</h3>
+        <span>{{ miembro.rol }}</span>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="qs-cta">
+  <h2>¿Listo para ser parte?</h2>
+  <p>Únete a la comunidad ECO-SYSTEM y empieza a aprender haciendo.</p>
+  <a routerLink="/home" class="qs-cta-btn">Ir al inicio</a>
+</section>

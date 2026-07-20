@@ -14,6 +14,8 @@ import { ProfesorEstudiantesComponent } from './profesor/profesor-estudiantes/pr
 import { ProfesorSolicitudComponent } from './profesor/profesor-solicitud/profesor-solicitud.component';
 import { ProfesorRetoComponent } from './profesor/profesor-reto/profesor-reto.component';
 import { ProfileComponent } from './views/profile/profile/profile.component';
+import { QuienesSomosComponent } from './views/quienes-somos/quienes-somos.component';
+import { ContactoComponent } from './views/contacto/contacto.component';
 
 export const routes: Routes = [ // Explicitly type routes as Routes
   { path: '', redirectTo: '/auth', pathMatch: 'full' },
@@ -33,6 +35,16 @@ export const routes: Routes = [ // Explicitly type routes as Routes
   {
     path: 'profile',
     component:ProfileComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'quienes-somos',
+    component: QuienesSomosComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'contacto',
+    component: ContactoComponent,
     canActivate: [authGuard],
   },
 
